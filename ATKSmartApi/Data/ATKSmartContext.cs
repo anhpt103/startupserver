@@ -30,6 +30,7 @@ namespace ATKSmartApi.Data
             modelBuilder.Entity<GroupMenu>().ToTable("TblGroupMenu");
             modelBuilder.Entity<Store>().ToTable("TblStore");
             modelBuilder.Entity<User>().ToTable("TblUser");
+            modelBuilder.Entity<UserProfile>().ToTable("TblUserProfile");
             modelBuilder.Entity<UserGroup>().ToTable("TblUserGroup");
             modelBuilder.Entity<UserMenu>().ToTable("TblUserMenu");
             modelBuilder.Entity<UserStore>().ToTable("TblUserStore");

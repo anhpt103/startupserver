@@ -16,7 +16,7 @@ namespace ATKSmartApi.Services.Auth
 {
     public interface IUserService
     {
-        User Authenticate(string username, string password);
+        User Authenticate(string email, string password);
         string Register(RegisterModel model, out User user);
         IEnumerable<User> GetAll();
     }
@@ -34,9 +34,9 @@ namespace ATKSmartApi.Services.Auth
             _mapper = mapper;
         }
 
-        public User Authenticate(string username, string password)
+        public User Authenticate(string email, string password)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Username == username && x.Password == password);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
 
             if (user == null) return null;
 
@@ -60,8 +60,8 @@ namespace ATKSmartApi.Services.Auth
         public string Register(RegisterModel model, out User user)
         {
             user = null;
-            var existsUser = _dbContext.Users.Any(x => x.Username == model.Username);
-            if (existsUser) return "Tên đăng nhập đã tồn tại";
+            var existsUser = _dbContext.Users.Any(x => x.Email == model.Email);
+            if (existsUser) return "Email này đã sử dụng để đăng ký";
 
             user = _mapper.Map<User>(model);
             if (user == null) return "Thông tin đăng ký tài khoản không đúng! Vui lòng kiểm tra lại";

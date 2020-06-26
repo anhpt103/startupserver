@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ATKSmartApi.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -167,13 +167,9 @@ namespace ATKSmartApi.Migrations
                 {
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Username = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
                     Token = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
@@ -211,6 +207,22 @@ namespace ATKSmartApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TblUserMenu", x => new { x.Menu, x.UserId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblUserProfile",
+                columns: table => new
+                {
+                    UserProfileId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblUserProfile", x => x.UserProfileId);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,6 +272,9 @@ namespace ATKSmartApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "TblUserMenu");
+
+            migrationBuilder.DropTable(
+                name: "TblUserProfile");
 
             migrationBuilder.DropTable(
                 name: "TblUserStore");

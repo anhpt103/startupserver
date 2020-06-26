@@ -99,23 +99,9 @@ namespace ATKSmartApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<string>("Email")
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -129,11 +115,6 @@ namespace ATKSmartApi.Migrations
                     b.Property<string>("Token")
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
 
                     b.HasKey("UserId");
 
@@ -187,6 +168,33 @@ namespace ATKSmartApi.Migrations
                     b.HasKey("Menu", "UserId");
 
                     b.ToTable("TblUserMenu");
+                });
+
+            modelBuilder.Entity("ATKSmartApi.Entities.Auth.UserProfile", b =>
+                {
+                    b.Property<int>("UserProfileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserProfileId");
+
+                    b.ToTable("TblUserProfile");
                 });
 
             modelBuilder.Entity("ATKSmartApi.Entities.Auth.UserStore", b =>
