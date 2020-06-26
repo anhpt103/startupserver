@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ATKSmartApi.Entities.Auth;
 using ATKSmartApi.Models.Auth;
 using ATKSmartApi.Services.Auth;
+using ATKSmartApi.Models;
 
 namespace ATKSmartApi.Controllers.Auth
 {
@@ -22,12 +23,16 @@ namespace ATKSmartApi.Controllers.Auth
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]AuthenticateModel model)
         {
-            if (string.IsNullOrEmpty(model.Username)) return BadRequest(new { message = "Tên đăng nhập không thể trống!" });
+            var result = new ResultBase<string>();
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                result.Message = "Tên đăng nhập không thể trống!"
+            }
             if (string.IsNullOrEmpty(model.Password)) return BadRequest(new { message = "Mật khẩu không thể trống!" });
 
             var user = _userService.Authenticate(model.Username.ToLower(), model.Password.ToLower());
 
-            if (user == null) return BadRequest(new { message = "Tên đăng nhập hoặc mật khẩu không đúng!" });
+            if (user == null) return Ok(new { message = "Tên đăng nhập hoặc mật khẩu không đúng!" });
 
             return Ok(user);
         }
