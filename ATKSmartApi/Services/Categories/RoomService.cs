@@ -32,7 +32,7 @@ namespace ATKSmartApi.Services.Categories
 
         public async Task<Room> GetById(int id)
         {
-            return await _dbContext.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Rooms.FirstOrDefaultAsync(x => x.RoomId == id);
         }
 
         public async Task<string> Insert(Room room)
@@ -55,7 +55,7 @@ namespace ATKSmartApi.Services.Categories
             string msg = "";
             try
             {
-                var roomItem = await _dbContext.Rooms.AnyAsync(x => x.Id == room.Id);
+                var roomItem = await _dbContext.Rooms.AnyAsync(x => x.RoomId == room.RoomId);
                 if (!roomItem) return "Không tìm thấy dữ liệu";
 
                 _dbContext.Rooms.Update(room);
@@ -73,7 +73,7 @@ namespace ATKSmartApi.Services.Categories
             string msg = "";
             try
             {
-                var roomItem = await _dbContext.Rooms.FirstOrDefaultAsync(x => x.Id == id);
+                var roomItem = await _dbContext.Rooms.FirstOrDefaultAsync(x => x.RoomId == id);
                 if (roomItem == null) return "Không tìm thấy dữ liệu";
 
                 _dbContext.Rooms.Remove(roomItem);

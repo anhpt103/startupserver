@@ -8,12 +8,12 @@ namespace ATKSmartApi.Controllers.Auth
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
         private IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }

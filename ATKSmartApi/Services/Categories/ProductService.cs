@@ -27,7 +27,7 @@ namespace ATKSmartApi.Services.Categories
 
         public Product GetById(int id)
         {
-            return _dbContext.Products.FirstOrDefault(x => x.Id == id);
+            return _dbContext.Products.FirstOrDefault(x => x.ProductId == id);
         }
     }
 }

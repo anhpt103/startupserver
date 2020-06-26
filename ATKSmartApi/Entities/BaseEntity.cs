@@ -6,9 +6,6 @@ namespace ATKSmartApi.Entities
 {
     public class BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
         [MaxLength(20)]
@@ -20,5 +17,7 @@ namespace ATKSmartApi.Entities
         [MaxLength(20)]
         [Column(TypeName = "varchar(50)")]
         public string UpdateBy { get; set; }
+
+        public int StoreId { get; set; }
     }
 }

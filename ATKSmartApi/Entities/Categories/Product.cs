@@ -1,19 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ATKSmartApi.Entities.Categories
 {
     public class Product : BaseEntity
     {
-        [MaxLength(20)]
-        [Required]
-        [Column(TypeName = "varchar(20)")]
-        public string Code { get; set; }
+        [Key]
+        public int ProductId { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(5)]
         [Required]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Name { get; set; }
+        [Column(TypeName = "varchar(5)")]
+        public string ProductCode { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        [Column(TypeName = "nvarchar(150)")]
+        public string ProductName { get; set; }
 
         [Required]
         public int SupplierId { get; set; }
@@ -23,11 +27,15 @@ namespace ATKSmartApi.Entities.Categories
 
         public int? UnitCalcId { get; set; }
 
-        [Column(TypeName = "nvarchar(300)")]
-        [MaxLength(300)]
+        [Required]
+        public decimal ProductPrice { get; set; }
+
+        public decimal ProductInventory { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
+        [MaxLength(100)]
         public string Description { get; set; }
 
-        [Required]
-        public decimal Price { get; set; }
+        public Nullable<int> Status { get; set; }
     }
 }

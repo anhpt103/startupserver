@@ -46,7 +46,7 @@ namespace ATKSmartApi.Services.Auth
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.UserId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -66,7 +66,6 @@ namespace ATKSmartApi.Services.Auth
             user = _mapper.Map<User>(model);
             if (user == null) return "Thông tin đăng ký tài khoản không đúng! Vui lòng kiểm tra lại";
 
-            user.CreateDate = DateTime.Now;
             _dbContext.Users.Add(user);
 
             int countSaved = _dbContext.SaveChanges();

@@ -4,21 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ATKSmartApi.Entities.Categories
 {
-    public class Room : BaseEntity
+    public class Supplier : BaseEntity
     {
         [Key]
-        public int RoomId { get; set; }
+        public int SupplierId { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        [Column(TypeName = "nvarchar(100)")]
-        public string RoomName { get; set; }
+        [MaxLength(150)]
+        [Column(TypeName = "nvarchar(150)")]
+        public string SupplierName { get; set; }
 
-        [Required]
-        public int RoomType { get; set; }
-
-        [Required]
-        public decimal RoomPrice { get; set; }
+        [Column(TypeName = "nvarchar(150)")]
+        [MaxLength(150)]
+        public string Address { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         [MaxLength(100)]

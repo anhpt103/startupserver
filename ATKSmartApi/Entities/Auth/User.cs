@@ -4,15 +4,24 @@ using System.Text.Json.Serialization;
 
 namespace ATKSmartApi.Entities.Auth
 {
-    public class User : BaseEntity
+    public class User
     {
-        [MaxLength(50)]
-        [Column(TypeName = "nvarchar(50)")]
+        [Key]
+        public int UserId { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        [Column(TypeName = "nvarchar(30)")]
         public string FirstName { get; set; }
 
-        [MaxLength(50)]
-        [Column(TypeName = "nvarchar(50)")]
+        [Required]
+        [MaxLength(30)]
+        [Column(TypeName = "nvarchar(30)")]
         public string LastName { get; set; }
+
+        [MaxLength(50)]
+        [Column(TypeName = "varchar(50)")]
+        public string Email { get; set; }
 
         [MaxLength(15)]
         [Column(TypeName = "varchar(15)")]
