@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ATKSmartApi.Entities.Auth;
+﻿using ATKSmartApi.Entities.Auth;
 using ATKSmartApi.Models.Auth;
 using ATKSmartApi.Services.Auth;
-using ATKSmartApi.Models;
 using FluentResults;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ATKSmartApi.Controllers.Auth
 {

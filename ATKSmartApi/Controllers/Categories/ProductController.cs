@@ -6,7 +6,7 @@ namespace ATKSmartApi.Controllers.Categories
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
         private IProductService _productService;
@@ -16,8 +16,8 @@ namespace ATKSmartApi.Controllers.Categories
             _productService = productService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("get_product")]
+        public IActionResult Get(string pi, string ps, string sorter, string status)
         {
             var products = _productService.GetAll();
             return Ok(products);
