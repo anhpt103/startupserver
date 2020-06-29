@@ -50,6 +50,13 @@ namespace ATKSmartApi.Controllers.Auth
             return Ok(user);
         }
 
+        [HttpPost("post_current_user")]
+        public IActionResult PostCurrentUser()
+        {
+            var user = _userService.PostCurrentUser();
+            return Ok(user);
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {

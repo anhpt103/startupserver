@@ -16,6 +16,7 @@ namespace ATKSmartApi.Data
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<UserMenu> UserMenus { get; set; }
         public DbSet<UserStore> UserStores { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         // Categories
         public DbSet<Product> Products { get; set; }

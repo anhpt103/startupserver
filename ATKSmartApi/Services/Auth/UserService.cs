@@ -19,6 +19,7 @@ namespace ATKSmartApi.Services.Auth
         User Authenticate(string email, string password);
         string Register(RegisterModel model, out User user);
         IEnumerable<User> GetAll();
+        UserProfileModel PostCurrentUser();
     }
 
     public class UserService : IUserService
@@ -72,6 +73,15 @@ namespace ATKSmartApi.Services.Auth
             if (countSaved == 0) return "Lỗi lưu cơ sở dữ liệu";
 
             return "";
+        }
+
+        public UserProfileModel PostCurrentUser()
+        {
+            var result = from user in _dbContext.Users 
+                         join 
+                         profile in _dbContext.UserProfiles 
+                         on user.UserId equals profile.UserId
+            return result;
         }
 
         public IEnumerable<User> GetAll()

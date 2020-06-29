@@ -62,6 +62,7 @@ namespace ATKSmartApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<ISupplierService, SupplierService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
