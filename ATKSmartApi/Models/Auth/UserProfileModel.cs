@@ -7,6 +7,8 @@ namespace ATKSmartApi.Models.Auth
         [Required]
         public int UserId { get; set; }
 
+        public int? UserProfileId { get; set; }
+
         [MaxLength(30)]
         public string FirstName { get; set; }
 

@@ -1,10 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+﻿using ATKSmartApi.Common.Constants;
 using ATKSmartApi.Data;
 using ATKSmartApi.Entities.Auth;
 using ATKSmartApi.Helpers;
 using ATKSmartApi.Models.Auth;
+using AutoMapper;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,6 +21,7 @@ namespace ATKSmartApi.Services.Auth
         string Register(RegisterModel model, out User user);
         IEnumerable<User> GetAll();
         UserProfileModel PostCurrentUser();
+        string PostUserProfile(UserProfileModel model);
     }
 
     public class UserService : IUserService
@@ -77,16 +79,55 @@ namespace ATKSmartApi.Services.Auth
 
         public UserProfileModel PostCurrentUser()
         {
-            var result = from user in _dbContext.Users 
-                         join 
-                         profile in _dbContext.UserProfiles 
-                         on user.UserId equals profile.UserId
-            return result;
+            var result = (from user in _dbContext.Users
+                          join profile in _dbContext.UserProfiles
+                          on user.UserId equals profile.UserId into pu
+                          from subpro in pu.DefaultIfEmpty()
+                          select new UserProfileModel
+                          {
+                              UserId = user.UserId,
+                              UserProfileId = subpro.UserProfileId,
+                              FirstName = subpro.FirstName ?? String.Empty,
+                              LastName = subpro.LastName ?? String.Empty,
+                              Address = subpro.Address ?? String.Empty,
+                              Email = user.Email,
+                              Password = user.Password,
+                              PhoneNumber = user.PhoneNumber
+                          });
+            if (result.Count() > 0) return result.FirstOrDefault();
+            return null;
+        }
+
+        public string PostUserProfile(UserProfileModel model)
+        {
+            var existsUser = _dbContext.Users.Any(x => x.UserId == model.UserId);
+            if (!existsUser) return MessageForUser.USER_NOTFOUND;
+
+            string msg = DoExcecuteUserProfile(model);
+
+            return msg;
         }
 
         public IEnumerable<User> GetAll()
         {
             return _dbContext.Users;
+        }
+
+        private string DoExcecuteUserProfile(UserProfileModel model)
+        {
+            string msg = "";
+
+            var userProfile = _mapper.Map<UserProfile>(model);
+            if (userProfile == null) return MessageForUser.OBJ_INPUT_INVALID;
+
+            var existsUserProfile = _dbContext.UserProfiles.Any(x => x.UserId == model.UserId);
+            if (existsUserProfile) _dbContext.UserProfiles.Update(userProfile);
+            else _dbContext.UserProfiles.Add(userProfile);
+
+            try { _dbContext.SaveChanges(); }
+            catch (Exception ex) { msg = ex.Message; }
+
+            return msg;
         }
     }
 }

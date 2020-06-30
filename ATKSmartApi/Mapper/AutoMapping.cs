@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using ATKSmartApi.Entities.Auth;
+﻿using ATKSmartApi.Entities.Auth;
 using ATKSmartApi.Models.Auth;
+using AutoMapper;
 
 namespace ATKSmartApi.Mapper
 {
@@ -9,6 +9,7 @@ namespace ATKSmartApi.Mapper
         public AutoMapping()
         {
             CreateMap<RegisterModel, User>();
+            CreateMap<UserProfileModel, UserProfile>();
         }
     }
 }

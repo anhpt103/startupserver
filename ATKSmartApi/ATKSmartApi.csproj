@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Models\Categories\**" />
+    <Compile Remove="ObjCommon\**" />
     <Content Remove="Models\Categories\**" />
+    <Content Remove="ObjCommon\**" />
     <EmbeddedResource Remove="Models\Categories\**" />
+    <EmbeddedResource Remove="ObjCommon\**" />
     <None Remove="Models\Categories\**" />
+    <None Remove="ObjCommon\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="ObjCommon\" />
   </ItemGroup>
 
 
