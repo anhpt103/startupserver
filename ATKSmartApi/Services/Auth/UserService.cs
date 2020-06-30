@@ -21,7 +21,7 @@ namespace ATKSmartApi.Services.Auth
         string Register(RegisterModel model, out User user);
         IEnumerable<User> GetAll();
         UserProfileModel PostCurrentUser();
-        string PostUserProfile(UserProfileModel model);
+        string PostUserProfile(UserProfileModel model, out UserProfileModel outData);
     }
 
     public class UserService : IUserService
@@ -98,13 +98,15 @@ namespace ATKSmartApi.Services.Auth
             return null;
         }
 
-        public string PostUserProfile(UserProfileModel model)
+        public string PostUserProfile(UserProfileModel model, out UserProfileModel outData)
         {
+            outData = null;
             var existsUser = _dbContext.Users.Any(x => x.UserId == model.UserId);
             if (!existsUser) return MessageForUser.USER_NOTFOUND;
 
-            string msg = DoExcecuteUserProfile(model);
+            string msg = DoExcecuteUserProfile(model, out UserProfileModel outUserProfile);
 
+            outData = outUserProfile;
             return msg;
         }
 
@@ -113,18 +115,25 @@ namespace ATKSmartApi.Services.Auth
             return _dbContext.Users;
         }
 
-        private string DoExcecuteUserProfile(UserProfileModel model)
+        private string DoExcecuteUserProfile(UserProfileModel model, out UserProfileModel outUserProfile)
         {
             string msg = "";
+            outUserProfile = null;
 
             var userProfile = _mapper.Map<UserProfile>(model);
-            if (userProfile == null) return MessageForUser.OBJ_INPUT_INVALID;
+            if (userProfile == null) return MessageForUser.OBJ_MAPPER_INVALID;
 
             var existsUserProfile = _dbContext.UserProfiles.Any(x => x.UserId == model.UserId);
             if (existsUserProfile) _dbContext.UserProfiles.Update(userProfile);
             else _dbContext.UserProfiles.Add(userProfile);
 
-            try { _dbContext.SaveChanges(); }
+            try
+            {
+                int count = _dbContext.SaveChanges();
+                if (count <= 0) return MessageForUser.EXECUTE_CRUD_FAILD;
+
+                outUserProfile =  _mapper.Map(userProfile, model);
+            }
             catch (Exception ex) { msg = ex.Message; }
 
             return msg;

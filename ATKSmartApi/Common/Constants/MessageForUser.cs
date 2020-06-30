@@ -18,10 +18,13 @@
         // FAILD
         public static string REGISTER_FAILD = "Đăng ký không thành công!";
 
-        // OBJECT INPUT INVALID
-        public static string OBJ_INPUT_INVALID = "Dữ liệu đầu vào là rỗng! Vui lòng kiểm tra lại!";
+        // OBJECT MAPPER INVALID
+        public static string OBJ_MAPPER_INVALID = "Dữ liệu đầu vào là rỗng! Vui lòng kiểm tra lại!";
 
         // NOTFOUND
         public static string USER_NOTFOUND = "Không tìm thấy tài khoản trong dữ liệu! Vui lòng kiểm tra lại!";
+
+        // EXECUTE INSERT, UPDATE, DELETE FAILD
+        public static string EXECUTE_CRUD_FAILD = "Xử lý lưu dữ liệu không thành công";
     }
 }

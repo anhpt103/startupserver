@@ -67,10 +67,10 @@ namespace ATKSmartApi.Controllers.Auth
             if (string.IsNullOrEmpty(model.Address)) return Ok(Result.Fail(MessageForUser.ADDRESS_REQUIRE));
             if (string.IsNullOrEmpty(model.PhoneNumber)) return Ok(Result.Fail(MessageForUser.PHONENUMBER_REQUIRE));
 
-            string msg = _userService.PostUserProfile(model);
+            string msg = _userService.PostUserProfile(model, out UserProfileModel outData);
             if (msg.Length > 0) return Ok(Result.Fail(msg));
 
-            return Ok(Result.Ok(model));
+            return Ok(Result.Ok(outData));
         }
 
         [HttpGet]

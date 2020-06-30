@@ -16,10 +16,10 @@ namespace ATKSmartApi.Controllers.Categories
             _productService = productService;
         }
 
-        [HttpGet("get_product")]
-        public IActionResult Get(string pi, string ps, string sorter, string status)
+        [HttpPost("post_product")]
+        public IActionResult PostProduct()
         {
-            var products = _productService.GetAll();
+            var products = _productService.PostProduct();
             return Ok(products);
         }
 

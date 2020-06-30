@@ -7,7 +7,7 @@ namespace ATKSmartApi.Services.Categories
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetAll();
+        IEnumerable<Product> PostProduct();
         Product GetById(int id);
     }
 
@@ -20,7 +20,7 @@ namespace ATKSmartApi.Services.Categories
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<Product> PostProduct()
         {
             return _dbContext.Products;
         }
