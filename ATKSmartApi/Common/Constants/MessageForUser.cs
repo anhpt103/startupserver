@@ -2,6 +2,9 @@
 {
     public static class MessageForUser
     {
+        // DUPLICATE
+        public static string EMAIL_DUPLICATE = "Email này đã sử dụng để đăng ký!"; 
+
         // REQUIRE
         public static string USERID_REQUIRE = "ID tài khoản không đúng!";
         public static string EMAIL_REQUIRE = "Email không thể trống!";
@@ -23,6 +26,7 @@
 
         // NOTFOUND
         public static string USER_NOTFOUND = "Không tìm thấy tài khoản trong dữ liệu! Vui lòng kiểm tra lại!";
+        public static string STORE_NOTFOUND = "Không tìm thấy cửa hàng trong dữ liệu! Vui lòng kiểm tra lại!";
 
         // EXECUTE INSERT, UPDATE, DELETE FAILD
         public static string EXECUTE_CRUD_FAILD = "Xử lý lưu dữ liệu không thành công";

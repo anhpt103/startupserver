@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATKSmartApi.Common.Constants;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ATKSmartApi.Models
@@ -7,12 +8,12 @@ namespace ATKSmartApi.Models
     {
         public DateTime CreateDate { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50, ErrorMessageResourceType = typeof(string), ErrorMessage = nameof(ValidateModel.CREATEBY_LENGTH_INVALID))]
         public string CreateBy { get; set; }
 
         public DateTime UpdateDate { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50, ErrorMessageResourceType = typeof(string), ErrorMessage = nameof(ValidateModel.UPDATEBY_LENGTH_INVALID))]
         public string UpdateBy { get; set; }
     }
 }

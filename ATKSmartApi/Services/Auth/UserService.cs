@@ -64,15 +64,15 @@ namespace ATKSmartApi.Services.Auth
         {
             user = null;
             var existsUser = _dbContext.Users.Any(x => x.Email == model.Email);
-            if (existsUser) return "Email này đã sử dụng để đăng ký";
+            if (existsUser) return MessageForUser.EMAIL_DUPLICATE;
 
             user = _mapper.Map<User>(model);
-            if (user == null) return "Thông tin đăng ký tài khoản không đúng! Vui lòng kiểm tra lại";
+            if (user == null) return MessageForUser.OBJ_MAPPER_INVALID;
 
             _dbContext.Users.Add(user);
 
             int countSaved = _dbContext.SaveChanges();
-            if (countSaved == 0) return "Lỗi lưu cơ sở dữ liệu";
+            if (countSaved == 0) return MessageForUser.EXECUTE_CRUD_FAILD;
 
             return "";
         }

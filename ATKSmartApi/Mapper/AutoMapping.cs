@@ -9,6 +9,7 @@ namespace ATKSmartApi.Mapper
         public AutoMapping()
         {
             CreateMap<RegisterModel, User>();
+            CreateMap<StoreModel, Store>().ReverseMap();
             CreateMap<UserProfileModel, UserProfile>().ReverseMap();
         }
     }

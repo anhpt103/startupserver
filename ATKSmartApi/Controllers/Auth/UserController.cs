@@ -44,7 +44,7 @@ namespace ATKSmartApi.Controllers.Auth
             if (string.IsNullOrEmpty(model.Captcha)) return Ok(Result.Fail("Bạn chưa nhập mã Captcha!"));
 
             string msg = _userService.Register(model, out User user);
-            if (msg.Length > 0) return BadRequest(new { message = msg });
+            if (msg.Length > 0) return Ok(Result.Fail(msg));
 
             if (user == null) return Ok(Result.Fail(MessageForUser.REGISTER_FAILD));
 

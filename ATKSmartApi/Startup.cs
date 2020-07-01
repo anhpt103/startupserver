@@ -1,3 +1,7 @@
+using ATKSmartApi.Data;
+using ATKSmartApi.Helpers;
+using ATKSmartApi.Services.Auth;
+using ATKSmartApi.Services.Categories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -6,10 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using ATKSmartApi.Data;
-using ATKSmartApi.Helpers;
-using ATKSmartApi.Services.Auth;
-using ATKSmartApi.Services.Categories;
 using System.Text;
 
 namespace ATKSmartApi
@@ -59,6 +59,7 @@ namespace ATKSmartApi
             services.AddAutoMapper(typeof(Startup));
 
             // configure DI for application services
+            services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRoomService, RoomService>();
