@@ -21,7 +21,7 @@ namespace ATKSmartApi.Controllers.Auth
         [HttpPost("post_store")]
         public IActionResult PostAllStore()
         {
-            return Ok(_storeService.PostStore());
+            return Ok(Result.Ok(_storeService.PostStore()));
         }
 
         [HttpPost("post_cru_store")]
@@ -30,7 +30,7 @@ namespace ATKSmartApi.Controllers.Auth
             string msg = _storeService.PostCRUStore(model, out StoreModel outStore);
             if (msg.Length > 0) return Ok(Result.Fail(msg));
 
-            return Ok(outStore);
+            return Ok(Result.Ok(outStore));
         }
     }
 }

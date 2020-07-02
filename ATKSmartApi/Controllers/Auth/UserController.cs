@@ -27,11 +27,10 @@ namespace ATKSmartApi.Controllers.Auth
             if (string.IsNullOrEmpty(model.Email)) return Ok(Result.Fail(MessageForUser.EMAIL_REQUIRE));
             if (string.IsNullOrEmpty(model.Password)) return Ok(Result.Fail(MessageForUser.PASSWORD_REQUIRE));
 
-            var user = _userService.Authenticate(model.Email.ToLower(), model.Password.ToLower());
+            string msg = _userService.Authenticate(model.Email.ToLower(), model.Password.ToLower(), out UserStoreModel outUserStore);
+            if (msg.Length > 0) return Ok(Result.Fail(msg));
 
-            if (user == null) return Ok(Result.Fail(MessageForUser.LOGIN_INVALID));
-
-            return Ok(Result.Ok(user));
+            return Ok(Result.Ok(outUserStore));
         }
 
         [AllowAnonymous]

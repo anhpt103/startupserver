@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ATKSmartApi.Migrations
 {
     [DbContext(typeof(ATKSmartContext))]
-    [Migration("20200626164651_InitialDatabase")]
+    [Migration("20200702090241_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

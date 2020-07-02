@@ -17,7 +17,7 @@ namespace ATKSmartApi.Services.Auth
 {
     public interface IUserService
     {
-        User Authenticate(string email, string password);
+        string Authenticate(string email, string password, out UserStoreModel outUserStore);
         string Register(RegisterModel model, out User user);
         IEnumerable<User> GetAll();
         UserProfileModel PostCurrentUser();
@@ -37,11 +37,12 @@ namespace ATKSmartApi.Services.Auth
             _mapper = mapper;
         }
 
-        public User Authenticate(string email, string password)
+        public string Authenticate(string email, string password, out UserStoreModel outUserStore)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
 
-            if (user == null) return null;
+            outUserStore = null;
+            if (user == null) return MessageForUser.LOGIN_INVALID;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -57,7 +58,12 @@ namespace ATKSmartApi.Services.Auth
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
-            return user;
+            outUserStore = _mapper.Map(user, outUserStore);
+
+            var userStore = _dbContext.UserStores.FirstOrDefault(x => x.UserId == user.UserId);
+            if (userStore != null) outUserStore.StoreId = userStore.StoreId;
+
+            return "";
         }
 
         public string Register(RegisterModel model, out User user)
@@ -132,7 +138,7 @@ namespace ATKSmartApi.Services.Auth
                 int count = _dbContext.SaveChanges();
                 if (count <= 0) return MessageForUser.EXECUTE_CRUD_FAILD;
 
-                outUserProfile =  _mapper.Map(userProfile, model);
+                outUserProfile = _mapper.Map(userProfile, model);
             }
             catch (Exception ex) { msg = ex.Message; }
 

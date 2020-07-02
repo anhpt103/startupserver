@@ -14,7 +14,7 @@ namespace ATKSmartApi.Services.Auth
 {
     public interface IStoreService
     {
-        List<Store> PostStore();
+        Store PostStore();
         string PostCRUStore(StoreModel model, out StoreModel outStore);
     }
 
@@ -29,9 +29,9 @@ namespace ATKSmartApi.Services.Auth
             _mapper = mapper;
         }
 
-        public List<Store> PostStore()
+        public Store PostStore()
         {
-            return _dbContext.Stores.ToList();
+            return _dbContext.Stores.FirstOrDefault();
         }
 
         public string PostCRUStore(StoreModel model, out StoreModel outStore)
@@ -53,7 +53,7 @@ namespace ATKSmartApi.Services.Auth
             }
             catch (Exception ex) { msg = ex.Message; }
 
-            outStore = _mapper.Map(model, outStore);
+            outStore = _mapper.Map(store, model);
             return msg;
         }
     }
